@@ -175,9 +175,46 @@ STOP_WORDS = {'a',
 }
 
 def text_preprocess(text):
+    """
+    Preprocess text
+    :param text: text
+    :return: preprocessed text
+    """
     text = text.lower()
     text = re.sub(r'[^\w\s]', '', text)
     text = re.sub(r'\s+', ' ', text)
     text = [w for w in text.split() if w not in STOP_WORDS]
 
     return text
+
+def label_binary(row, key):
+    """
+    Label binary class to row
+    x <= 3 : 0
+    x > 3 : 1
+    :param row: pandas Series
+    :return: binary class labeled row
+    """
+    row['label'] = 1 if row[key] > 3 else 0
+    del row[key]
+    return row
+
+def label_multi(row, key):
+    """
+    Label multi class to row
+    x < 3 : 0
+    x == 3 : 1
+    x > 3 : 2
+    :param row: pandas Series
+    :return: multi class labeled row
+    """
+    if row[key] < 3:
+        row['label'] = 0
+    elif row[key] == 3:
+        row['label'] = 1
+    else:
+        row['label'] = 2
+
+    del row[key]
+
+    return row
