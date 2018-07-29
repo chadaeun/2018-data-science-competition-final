@@ -127,6 +127,7 @@ def main(args):
         result_df.to_csv(args.result_path, index=False)
         print('{} Done...'.format(model.__name__))
 
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--train_path', type=str, required=False, default='data/binary/train.csv',
