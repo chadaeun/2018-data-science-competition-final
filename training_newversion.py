@@ -89,12 +89,15 @@ def main(args):
     for model in clf_models:
         clf = model(class_weight='balanced')
         clf.fit(train_X, train_y)
-        """
+        
+        """확률 0.7이상일떄 1로 수정
         pred = clf.predict_proba(devtest_X)
         proba=pd.DataFrame(clf.predict_proba(devtest_X))
         pred=proba.applymap(lambda x: 1 if x>0.7 else 0).values
-        
+       
         """
+        
+        
         # Save Best Model
         if model == LogisticRegression:
             if binary:
